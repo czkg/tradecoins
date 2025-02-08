@@ -15,14 +15,17 @@ const getKrakenSymbol = (symbol) => {
 };
 
 //Fetch price from Kraken API
-app.get("api/prices", async (req, res) => {
+app.get(`/api/crypto/symbol`, async (req, res) => {
     try {
-        const symbol = getKrakenSymbol(req.params.symbol);
+        //const symbol = getKrakenSymbol(req.params.symbol);
+        const symbol = "BTC";
         const response = await axios.get(`https://api.kraken.com/0/public/Ticker?pair=XBTUSD`);
-        const price = response.data.result[`XXBTZUSD`]?.c[0];
+        //const price = response.data.result[`XXBTZUSD`].c[0];
+        //res.json(response.data);
 
-        if(!price) throw new Error("Invalid response from Kraken API");
-        res.json({symbol, price});
+        //if(!price) throw new Error("Invalid response from Kraken API");
+        //res.json({symbol, price});
+        res.json(response.data);
     } catch (error) {
         res.status(500).send({error: error.message});
     }
